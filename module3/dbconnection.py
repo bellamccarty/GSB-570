@@ -1,7 +1,15 @@
 import psycopg2
-import boto3
+import os
 from psycopg2 import OperationalError
-import json
+from dotenv import load_dotenv
+
+load_dotenv()
+
+db_name = os.getenv('DBNAME')
+db_user =  os.getenv('DBUSER')
+db_password = os.getenv('PASSWORD')
+db_host = os.getenv('HOST')
+db_port = "5432"
 
 def open_connection_to_db():
     # surround with try catch   
@@ -18,3 +26,6 @@ def open_connection_to_db():
         conn = None 
 
     return conn
+
+def get_db_attributes():
+    print(db_name, db_user, db_password, db_host, db_port)
