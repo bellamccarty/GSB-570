@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Review Application Programing Interfaces (APIs) and JavaScript Object Notation (JSON) format</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="2-API-review_files/libs/clipboard/clipboard.min.js"></script>
+<script src="2-API-review_files/libs/quarto-html/quarto.js"></script>
+<script src="2-API-review_files/libs/quarto-html/popper.min.js"></script>
+<script src="2-API-review_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="2-API-review_files/libs/quarto-html/anchor.min.js"></script>
+<link href="2-API-review_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="2-API-review_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="2-API-review_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="2-API-review_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="2-API-review_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Review Application Programing Interfaces (APIs) and JavaScript Object Notation (JSON) format</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+Understanding how APIs work is crucial for those learning about AI, as APIs provide the standardized mechanisms for accessing and integrating AI models and services into applications. Being able to effectively interact with APIs enables learners to explore different AI offerings, leverage AI frameworks and libraries, and incorporate AI capabilities into a wide range of projects, which is an increasingly valuable skill as AI becomes more pervasive across various domains.
+<p>
+Additionally, familiarity with JSON (JavaScript Object Notation) is essential for students learning about AI, as this lightweight data format is widely used for request/response payloads in AI APIs, configuration files in AI frameworks, and the representation of input/output data for AI models. Understanding the structure and syntax of JSON allows students to seamlessly interact with AI-related tools and services, parse and manipulate the data used in AI applications, and facilitate the integration of AI components into larger, distributed systems - all of which are crucial skills for AI practitioners working in real-world, web-based environments.
+</p><p>
+</p><p>Technically, here we are using a REST API. The use of RESTful (Representational State Transfer) APIs is highly relevant for students learning about AI, as REST has become the de facto standard for modern web services and APIs, including those used in AI-powered applications. REST APIs follow standardized principles and conventions, such as the use of HTTP methods for CRUD operations on resources, a resource-oriented design that aligns well with data-centric AI tasks, and the use of flexible data formats like JSON - all of which enable AI practitioners to easily integrate AI capabilities into their applications by leveraging a vast ecosystem of data sources, services, and tools through well-documented, stateless, and scalable API interfaces. ### Table of Contents 1. <a href="#get">GET()</a> 2. <a href="#json">JSON</a> 3. <a href="#api">Use a Real API</a> 4. <a href="#post">POST()</a> 5. <a href="#bedrock">API Access Bedrock</a> 6. <a href="#assignment">Assignment</a></p>
+<section id="get" class="level2">
+<h2 class="anchored" data-anchor-id="get">GET()<a name="get" href=""></a></h2>
+<p>The requests package is a popular library in Python for making HTTP requests to web servers. The get() and post() methods are two of the most commonly used functions provided by the requests library.</p>
+<p>The get() method is used to send an HTTP GET request to a specified URL. GET requests are typically used to retrieve data from a server, such as fetching a web page or an API response. The get() method returns a Response object, which contains the server’s response, including the status code, headers, and the content of the response.</p>
+<p><code>requests.get(url, params={}, args)</code>: <br> This method sends a HTTP GET request to the specified URL. A GET request is used to retrieve data from a server. The params argument is an optional dictionary of query string arguments. The server responds by sending back the requested data. GET requests should only retrieve data and should have no other effect.</p>
+<div id="eaeaded7-013c-4cba-a240-1dae9f2bcccc" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># example</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://api.github.com/users/darren-kraker'</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the json return from the API in json format</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>json_response <span class="op">=</span> response.json()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># See all keys and values of the json</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>json_response</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>{'login': 'darren-kraker',
+ 'id': 48769318,
+ 'node_id': 'MDQ6VXNlcjQ4NzY5MzE4',
+ 'avatar_url': 'https://avatars.githubusercontent.com/u/48769318?v=4',
+ 'gravatar_id': '',
+ 'url': 'https://api.github.com/users/darren-kraker',
+ 'html_url': 'https://github.com/darren-kraker',
+ 'followers_url': 'https://api.github.com/users/darren-kraker/followers',
+ 'following_url': 'https://api.github.com/users/darren-kraker/following{/other_user}',
+ 'gists_url': 'https://api.github.com/users/darren-kraker/gists{/gist_id}',
+ 'starred_url': 'https://api.github.com/users/darren-kraker/starred{/owner}{/repo}',
+ 'subscriptions_url': 'https://api.github.com/users/darren-kraker/subscriptions',
+ 'organizations_url': 'https://api.github.com/users/darren-kraker/orgs',
+ 'repos_url': 'https://api.github.com/users/darren-kraker/repos',
+ 'events_url': 'https://api.github.com/users/darren-kraker/events{/privacy}',
+ 'received_events_url': 'https://api.github.com/users/darren-kraker/received_events',
+ 'type': 'User',
+ 'user_view_type': 'public',
+ 'site_admin': False,
+ 'name': None,
+ 'company': None,
+ 'blog': '',
+ 'location': None,
+ 'email': None,
+ 'hireable': None,
+ 'bio': None,
+ 'twitter_username': None,
+ 'public_repos': 0,
+ 'public_gists': 0,
+ 'followers': 1,
+ 'following': 0,
+ 'created_at': '2019-03-20T18:01:30Z',
+ 'updated_at': '2025-04-05T21:09:25Z'}</code></pre>
+</div>
+</div>
+</section>
+<section id="json" class="level2">
+<h2 class="anchored" data-anchor-id="json">JSON<a name="json" href=""></a></h2>
+<p>JSON (JavaScript Object Notation) is a lightweight data interchange format that is easy for humans to read and write, and easy for machines to parse and generate. It is often used for transmitting data between a server and web application or between different applications. In the context of Python programming and using Application Programming Interfaces (APIs), JSON plays a crucial role.</p>
+<p>When working with APIs, data is typically exchanged in a structured format, such as JSON or XML. JSON has become the preferred format due to its simplicity and the fact that it is natively supported in most programming languages, including Python.</p>
+<div id="d2953017-f393-4ba8-b366-0aaa9ce3911d" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In Python, JSON is treated as a dictionary</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(json_response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>dict</code></pre>
+</div>
+</div>
+<div id="d1eee8ab-1b4f-4359-8720-1fdad3cdc302" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can look at the dict keys</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> json_response.keys():</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(k)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>login
+id
+node_id
+avatar_url
+gravatar_id
+url
+html_url
+followers_url
+following_url
+gists_url
+starred_url
+subscriptions_url
+organizations_url
+repos_url
+events_url
+received_events_url
+type
+user_view_type
+site_admin
+name
+company
+blog
+location
+email
+hireable
+bio
+twitter_username
+public_repos
+public_gists
+followers
+following
+created_at
+updated_at</code></pre>
+</div>
+</div>
+<div id="cafe82aa-eff6-4fda-9b67-4354a20877d4" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can look at just the values</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> v <span class="kw">in</span> json_response.values():</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>darren-kraker
+48769318
+MDQ6VXNlcjQ4NzY5MzE4
+https://avatars.githubusercontent.com/u/48769318?v=4
+
+https://api.github.com/users/darren-kraker
+https://github.com/darren-kraker
+https://api.github.com/users/darren-kraker/followers
+https://api.github.com/users/darren-kraker/following{/other_user}
+https://api.github.com/users/darren-kraker/gists{/gist_id}
+https://api.github.com/users/darren-kraker/starred{/owner}{/repo}
+https://api.github.com/users/darren-kraker/subscriptions
+https://api.github.com/users/darren-kraker/orgs
+https://api.github.com/users/darren-kraker/repos
+https://api.github.com/users/darren-kraker/events{/privacy}
+https://api.github.com/users/darren-kraker/received_events
+User
+public
+False
+None
+None
+
+None
+None
+None
+None
+None
+0
+0
+1
+0
+2019-03-20T18:01:30Z
+2025-04-05T21:09:25Z</code></pre>
+</div>
+</div>
+<div id="941c478a-c6b9-44f6-a2ee-dfc148518781" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Of we know the key, we can see the value by using the ['key'] index</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>json_response[<span class="st">'node_id'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>'MDQ6VXNlcjQ4NzY5MzE4'</code></pre>
+</div>
+</div>
+</section>
+<section id="post" class="level2">
+<h2 class="anchored" data-anchor-id="post">POST()<a name="post" href=""></a></h2>
+The post() method, on the other hand, is used to send an HTTP POST request to a specified URL. POST requests are typically used to send data to a server, such as submitting a form or sending data to an API endpoint. The post() method also returns a Response object, which contains the server’s response to the POST request. In this class, we will mostly use POST().
+<p>
+</p><p><code>requests.post(url, data={}, json={}, args)</code>:<br> This method sends a HTTP POST request to the specified URL. A POST request is used to send data to a server to create a new resource. The data or json argument is a dictionary of data that you want to send to the server. The server responds by sending back data, often the details of the created resource.</p>
+<div id="6716fe44-7cb2-415a-b9f2-0c9719d8970b" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of POST()</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the URL</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://httpbin.org/post'</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the headers</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If an API key is needed, put it here in the headers</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 'x-api-key': api_key,</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Content-Type'</span>: <span class="st">'application/json'</span>,  <span class="co"># Inform the server about the type of the content</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Accept'</span>: <span class="st">'application/json'</span>  <span class="co"># Tell the server what we are expecting in the response</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the data you want to send</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'key1'</span>: <span class="st">'value1'</span>,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">'key2'</span>: <span class="st">'value2'</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the data to JSON format</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>data_json <span class="op">=</span> json.dumps(data) <span class="co"># Convert the dictionary to a json string 'dump string'</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Here is the data I am sending...:'</span>, data_json)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Send the POST request</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(url, headers<span class="op">=</span>headers, data<span class="op">=</span>data_json)</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Handle the response</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>: <span class="co"># All went well</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Take action here</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'The API call was successful.'</span>)</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Error: </span><span class="sc">{</span>response<span class="sc">.</span>status_code<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>response<span class="sc">.</span>text<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co"># I usually don't print the response in this cell. This cell is only for making the API call</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Here is the data I am sending...: {"key1": "value1", "key2": "value2"}
+The API call was successful.</code></pre>
+</div>
+</div>
+<div id="df4f50eb-c7f2-4b04-bc79-1f6ccd39f1d1" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate though the response json object and print the keys &amp; values</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key <span class="kw">in</span> response.json().keys():</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(key, <span class="st">':'</span>,response.json()[key])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>args : {}
+data : {"key1": "value1", "key2": "value2"}
+files : {}
+form : {}
+headers : {'Accept': 'application/json', 'Accept-Encoding': 'gzip, deflate', 'Content-Length': '36', 'Content-Type': 'application/json', 'Host': 'httpbin.org', 'User-Agent': 'python-requests/2.32.3', 'X-Amzn-Trace-Id': 'Root=1-67fc3e0f-5a10ceea3331285239b21439'}
+json : {'key1': 'value1', 'key2': 'value2'}
+origin : 47.7.49.2
+url : https://httpbin.org/post</code></pre>
+</div>
+</div>
+<section id="storing-api-keys" class="level3">
+<h3 class="anchored" data-anchor-id="storing-api-keys">Storing API Keys</h3>
+<p>To store your API key for use within a notebook or other source code: - Get the access keys and secret from your email or other API vendor - Now, open a terminal from the jupyter Launcher - Use the nano text editor (or any other editor) - Create a .env file (that is a file with the exact name “.env” (files that start with ‘.’ are hidden by default - Add a line that looks like this: - AWS_ACCESS_KEY_ID=“YOUR_KEY” - AWS_SECRET_ACCESS_KEY=“YOUR_SECRET” - Insert your key in double-quotes - Save the file and exit the text editor. In nano: Save (ctl-o), Exit (ctl-x)</p>
+<p>
+</p><p>Next we will load this key into this session</p>
+<div id="b053ff70-bb51-4b76-84ba-88a8ab9a5f7e" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you want to use an API key or your access key load the following</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This package may not installed in our Sagemaker image.</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Everytime you researt this jupyterlab, you will have to reinstall it.</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#%pip install python-dotenv -q</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Now import the objects we need</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load environment variables from .env file</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Now you can access the environment variable</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>AWS_ACCESS_KEY_ID <span class="op">=</span> os.getenv(<span class="st">'aws_access_key_id'</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>AWS_SECRET_ACCESS_KEY <span class="op">=</span> os.getenv(<span class="st">'aws_secret_access_key'</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># You can print the key to make sure it is there, but I get nervous when I see a key printed somewhere.... Someone could steal it!</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#print(AWS_ACCESS_KEY_ID)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="use-bedrock-api" class="level2">
+<h2 class="anchored" data-anchor-id="use-bedrock-api">Use Bedrock API<a name="bedrock" href=""></a></h2>
+<p>Amazon Bedrock simplifies the process of building and scaling generative AI applications by providing access to high-performing foundation models (FMs) from leading AI companies through a single API.</p>
+<p>Amazon Bedrock currently supports 9 different model providers. To see and updated list of providers or to use a particular foundation model with the Amazon Bedrock API, you’ll need its model ID. For a list for providers and model IDs, see [Amazon Bedrock model IDs].(https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html)</p>
+<p>This function establishes a connection with AWS through your notebook to talk directly to Bedrock. If you want to run this code in your VS Code environment you would need to add your IAM Access Key and Secret as shown below:</p>
+<p><br> <code>AWS_ACCESS_KEY_ID=“YOUR_KEY” AWS_SECRET_ACCESS_KEY=“YOUR_SECRET” bedrock_runtime = get_bedrock_client(True,AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY) </code></p>
+<div id="4d63b68c-bdba-423b-9407-1e8b8a4ccd25" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python Built-Ins:</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Optional</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># External Dependencies:</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> botocore.config <span class="im">import</span> Config</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> botocore</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_bedrock_client(</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    runtime: Optional[<span class="bu">bool</span>] <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    aws_access_key_id: Optional[<span class="bu">str</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    aws_secret_access_key: Optional[<span class="bu">str</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    aws_session_token: Optional[<span class="bu">str</span>] <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> runtime:</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>        service_name <span class="op">=</span> <span class="st">'bedrock-runtime'</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>        service_name <span class="op">=</span> <span class="st">'bedrock'</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    bedrock_runtime <span class="op">=</span> boto3.client(</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>        service_name<span class="op">=</span>service_name,</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>        region_name<span class="op">=</span><span class="st">"us-west-2"</span>,  <span class="co"># Change to your preferred region</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>        aws_access_key_id<span class="op">=</span>aws_access_key_id,</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>        aws_secret_access_key<span class="op">=</span>aws_secret_access_key,</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>        aws_session_token<span class="op">=</span>aws_session_token  <span class="co"># Optional</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"boto3 Bedrock client successfully created!"</span>)</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(bedrock_runtime._endpoint)</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bedrock_runtime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now let’s call our function and create an object that we can use to interact with Bedrock</p>
+<div id="beb42aa8-cc6f-4541-bc56-2778fc8d0a11" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this if you are running in VS Code</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>bedrock_runtime <span class="op">=</span> get_bedrock_client(<span class="va">True</span>,AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># bedrock_runtime = get_bedrock_client()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>boto3 Bedrock client successfully created!
+bedrock-runtime(https://bedrock-runtime.us-west-2.amazonaws.com)</code></pre>
+</div>
+</div>
+<p>This function will be an abstract way to make our call to an LLM. We will parameritize all the elements that change from model to model</p>
+<div id="a27f6d00-fbf6-4e2d-9910-f8d35d2186d3" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> invoke_model(body, model_id, accept, content_type):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Invokes Amazon bedrock model to run an inference</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">    using the input provided in the request body.</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">        body (dict): The invokation body to send to bedrock</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">        model_id (str): the model to query</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">        accept (str): input accept type</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">        content_type (str): content type</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">        Inference response from the model.</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        start_time <span class="op">=</span> time.time()</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> bedrock_runtime.invoke_model(</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>            body<span class="op">=</span>json.dumps(body), </span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>            modelId<span class="op">=</span>model_id, </span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>            accept<span class="op">=</span>accept, </span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>            contentType<span class="op">=</span>content_type</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        elapsed_time <span class="op">=</span> time.time() <span class="op">-</span> start_time</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Model invocation took </span><span class="sc">{</span>elapsed_time<span class="sc">:.3f}</span><span class="ss"> seconds."</span>)</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> response</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Couldn't invoke </span><span class="sc">{</span>model_id<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> e</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we understand how to use an API, let’s call some models using the Bedrock API!</p>
+</section>
+<section id="amazon-nova" class="level2">
+<h2 class="anchored" data-anchor-id="amazon-nova">Amazon Nova</h2>
+<div id="674370e5-6b84-4dc9-8ef7-70d2df14c18e" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you'd like to try your own prompt, edit this parameter!</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>prompt_data <span class="op">=</span> <span class="st">"""Command: Write a paragraph why Generative AI is an important technology to understand.</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define one or more messages using the "user" and "assistant" roles.</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>message_list <span class="op">=</span> [{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: [{<span class="st">"text"</span>: prompt_data}]}]</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Configure the inference parameters.</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>inf_params <span class="op">=</span> {<span class="st">"max_new_tokens"</span>: <span class="dv">250</span>, <span class="st">"top_p"</span>: <span class="fl">0.9</span>, <span class="st">"top_k"</span>: <span class="dv">20</span>, <span class="st">"temperature"</span>: <span class="fl">0.7</span>}</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> {</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"schemaVersion"</span>: <span class="st">"messages-v1"</span>,</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"messages"</span>: message_list,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"inferenceConfig"</span>: inf_params,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Note the us. allows cross region inference</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>modelId <span class="op">=</span> <span class="st">"us.amazon.nova-lite-v1:0"</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>accept <span class="op">=</span> <span class="st">"application/json"</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>contentType <span class="op">=</span> <span class="st">"application/json"</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> invoke_model(body, modelId, accept, contentType)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>response_body <span class="op">=</span> json.loads(response.get(<span class="st">"body"</span>).read())</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response_body.get(<span class="st">"output"</span>).get(<span class="st">"message"</span>).get(<span class="st">"content"</span>)[<span class="dv">0</span>].get(<span class="st">"text"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model invocation took 1.624 seconds.
+Generative AI represents a pivotal advancement in the field of artificial intelligence, offering transformative potential across various sectors. Its ability to create content—ranging from text and images to music and code—mirrors human creativity, enabling more efficient and innovative solutions. Understanding Generative AI is crucial because it not only enhances productivity and creativity but also poses significant ethical considerations and challenges in areas such as authenticity and bias. As this technology continues to evolve, its implications for the future of work, education, and digital interaction are profound, making it essential for professionals, educators, and policymakers to grasp its capabilities and limitations. Mastery of Generative AI can empower individuals and organizations to harness its potential responsibly, driving forward progress in a rapidly changing digital landscape.</code></pre>
+</div>
+</div>
+<section id="anthropic-claude" class="level3">
+<h3 class="anchored" data-anchor-id="anthropic-claude">Anthropic Claude</h3>
+<div id="1cd7d4a1-774e-4cab-ac4c-e9b9a3f212ca" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you'd like to try your own prompt, edit this parameter!</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>prompt_data <span class="op">=</span> <span class="st">"""Human: Command: Write a paragraph why Generative AI is an important technology to understand.</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="st">Assistant:</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>messages <span class="op">=</span> [{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt_data}]</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>body<span class="op">=</span>{</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"anthropic_version"</span>: <span class="st">"bedrock-2023-05-31"</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"max_tokens"</span>: <span class="dv">250</span>,</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"messages"</span>: messages</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>modelId <span class="op">=</span> <span class="st">"anthropic.claude-3-5-sonnet-20240620-v1:0"</span>  <span class="co"># change this to use a different version from the model provider</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>accept <span class="op">=</span> <span class="st">"application/json"</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>contentType <span class="op">=</span> <span class="st">"application/json"</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> invoke_model(body, modelId, accept, contentType)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>response_body <span class="op">=</span> json.loads(response.get(<span class="st">"body"</span>).read())</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response_body.get(<span class="st">"content"</span>)[<span class="dv">0</span>].get(<span class="st">"text"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model invocation took 4.836 seconds.
+Generative AI is a groundbreaking technology that is rapidly transforming various industries and aspects of our daily lives. Understanding this technology is crucial because it has the potential to revolutionize how we create content, solve complex problems, and interact with machines. Generative AI systems, such as large language models and image generators, can produce human-like text, create realistic images, and even compose music. This capability opens up new possibilities for automation, creativity, and innovation across fields like healthcare, education, entertainment, and scientific research. Moreover, as generative AI becomes more integrated into our society, it raises important ethical and societal questions about authenticity, privacy, and the future of work. By grasping the fundamentals of generative AI, individuals can better navigate these changes, make informed decisions about its use, and potentially contribute to its responsible development and application.</code></pre>
+</div>
+</div>
+</section>
+<section id="meta-llama" class="level3">
+<h3 class="anchored" data-anchor-id="meta-llama">Meta Llama</h3>
+<div id="97a6931f-5426-4eba-a4b1-3310ef69b42e" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you'd like to try your own prompt, edit this parameter!</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>prompt_data <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="st">You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st">If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="st">Write a paragraph why Generative AI is an important technology to understand."""</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> {</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"prompt"</span>: prompt_data,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"temperature"</span>: <span class="fl">0.5</span>,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"top_p"</span>: <span class="fl">0.9</span>,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"max_gen_len"</span>: <span class="dv">512</span>,</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>modelId <span class="op">=</span> <span class="st">"meta.llama3-8b-instruct-v1:0"</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>accept <span class="op">=</span> <span class="st">"application/json"</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>contentType <span class="op">=</span> <span class="st">"application/json"</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> invoke_model(body, modelId, accept, contentType)</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>response_body <span class="op">=</span> json.loads(response.get(<span class="st">"body"</span>).read())</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response_body[<span class="st">"generation"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model invocation took 1.688 seconds.
+ 
+
+Generative AI is an important technology to understand because it has the potential to revolutionize many industries and aspects of our lives. With the ability to generate human-like text, images, and music, Generative AI can be used to create new forms of entertainment, improve customer service, and even help with tasks such as writing and designing. Additionally, Generative AI can be used to generate new ideas and solutions to complex problems, making it a valuable tool for businesses and researchers. Furthermore, Generative AI can also be used to generate personalized content, such as recommendations and advertisements, making it a powerful technology for marketing and advertising. Overall, understanding Generative AI and its capabilities is important for anyone looking to stay ahead of the curve and take advantage of the many benefits it has to offer.</code></pre>
+</div>
+</div>
+</section>
+<section id="stability-stable-diffusion-xl" class="level3">
+<h3 class="anchored" data-anchor-id="stability-stable-diffusion-xl">Stability Stable Diffusion XL</h3>
+<div id="050e5e4c-ccc3-490d-803c-c4ca2a2f6534" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you'd like to try your own prompt, edit this parameter!</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>prompt_data <span class="op">=</span> <span class="st">"an ice cream fighting a popscicle"</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> {</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"text_prompts"</span>: [{<span class="st">"text"</span>: prompt_data}],</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cfg_scale"</span>: <span class="dv">10</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"seed"</span>: <span class="dv">20</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"steps"</span>: <span class="dv">50</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>modelId <span class="op">=</span> <span class="st">"stability.stable-diffusion-xl-v1"</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>accept <span class="op">=</span> <span class="st">"application/json"</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>contentType <span class="op">=</span> <span class="st">"application/json"</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> invoke_model(body, modelId, accept, contentType)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>response_body <span class="op">=</span> json.loads(response.get(<span class="st">"body"</span>).read())</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response_body[<span class="st">"result"</span>])</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>response_body<span class="sc">.</span>get(<span class="st">"artifacts"</span>)[<span class="dv">0</span>]<span class="sc">.</span>get(<span class="st">"base64"</span>)[<span class="dv">0</span>:<span class="dv">80</span>]<span class="sc">}</span><span class="ss">...'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model invocation took 7.877 seconds.
+success
+iVBORw0KGgoAAAANSUhEUgAABAAAAAQACAIAAADwf7zUAAABimVYSWZNTQAqAAAACAAGAQAABAAAAAEA...</code></pre>
+</div>
+</div>
+<p>The output is a base64 encoded string of the image data. You can use any image processing library (such as Pillow) to decode the image as in the example below:</p>
+<div id="5d05f95d-4d30-4d82-a42b-748351170a2e" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> base64</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>base_64_img_str <span class="op">=</span> response_body.get(<span class="st">"artifacts"</span>)[<span class="dv">0</span>].get(<span class="st">"base64"</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> Image.<span class="bu">open</span>(io.BytesIO(base64.decodebytes(<span class="bu">bytes</span>(base_64_img_str, <span class="st">"utf-8"</span>))))</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<div>
+<figure class="figure">
+<p><img src="2-API-review_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Okay now lets explore how we can pass parameters to a prompt to get dynamic output</p>
+<div id="7902a7d4-b6b2-4f27-8abe-c60354bb8561" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>variable_used_in_prompt <span class="op">=</span> <span class="st">"red"</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>prompt_data <span class="op">=</span> <span class="ss">f"Human: Give me a few fruits that are the color </span><span class="sc">{</span>variable_used_in_prompt<span class="sc">}</span><span class="ss">. Assistant:"</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>messages <span class="op">=</span> [{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt_data}]</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>body<span class="op">=</span>{</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"anthropic_version"</span>: <span class="st">"bedrock-2023-05-31"</span>,</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"max_tokens"</span>: <span class="dv">500</span>,</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"messages"</span>: messages</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>modelId <span class="op">=</span> <span class="st">"anthropic.claude-3-5-sonnet-20240620-v1:0"</span>  <span class="co"># change this to use a different version from the model provider</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>accept <span class="op">=</span> <span class="st">"application/json"</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>contentType <span class="op">=</span> <span class="st">"application/json"</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> invoke_model(body, modelId, accept, contentType)</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>response_body <span class="op">=</span> json.loads(response.get(<span class="st">"body"</span>).read())</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response_body.get(<span class="st">"content"</span>)[<span class="dv">0</span>].get(<span class="st">"text"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model invocation took 2.882 seconds.
+Here are several fruits that are typically red in color:
+
+1. Strawberries
+2. Raspberries
+3. Cherries
+4. Red apples (e.g., Red Delicious, Gala)
+5. Watermelon (the flesh)
+6. Red grapes
+7. Pomegranate
+8. Red plums
+9. Red grapefruit
+10. Red pears (e.g., Red Anjou)
+
+These fruits can vary in shade from bright red to deep crimson, depending on the specific variety and ripeness.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="assignment" class="level2">
+<h2 class="anchored" data-anchor-id="assignment">Assignment<a name="assignment" href=""></a></h2>
+<p>Use an API to gather data and pass that to an LLM to get a dynamic response.<br>
+Some possible API sources<br> https://www.api-ninjas.com/api/ <br> https://zenquotes.io/api/quotes/ <br></p>
+<p>Bonus: Try to extend your code to use models that fall outside Bedrock like OpenAI.<br> <em>Note: LLMs external to Bedrock may require paying for an API key</em></p>
+<div id="6c4e8f70" class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set my API key</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>api_key <span class="op">=</span> os.getenv(<span class="st">'aws_access_key_id'</span>)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a list of parks in California </span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://developer.nps.gov/api/v1/parks"</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"stateCode"</span>: <span class="st">"CA"</span>,</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"limit"</span>: <span class="dv">10</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Accept"</span>: <span class="st">"application/json"</span>,</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"X-Api-Key"</span>: api_key</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers, params<span class="op">=</span>params)</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Sanity Check (as seen above)</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'The API call was successful.'</span>)</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>    parks_data <span class="op">=</span> response.json()</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>    park_names <span class="op">=</span> [park[<span class="st">"fullName"</span>] <span class="cf">for</span> park <span class="kw">in</span> parks_data[<span class="st">"data"</span>]]</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Parks in CA:"</span>, park_names)</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Error fetching parks:"</span>, response.status_code)</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Build prompt for Claude</span></span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>joined_names <span class="op">=</span> <span class="st">", "</span>.join(park_names)</span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="ss">f"""Human: I’m planning a trip to California and found these national parks: </span><span class="sc">{</span>joined_names<span class="sc">}</span><span class="ss">.</span></span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a><span class="ss">Can you suggest which ones to prioritize and explain what makes each one unique?</span></span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a><span class="ss">Assistant:"""</span></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Claude prompt structure (as seen above)</span></span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>messages <span class="op">=</span> [{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt}]</span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> {</span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"anthropic_version"</span>: <span class="st">"bedrock-2023-05-31"</span>,</span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>    <span class="st">"max_tokens"</span>: <span class="dv">500</span>,</span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"messages"</span>: messages</span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a>body_str <span class="op">=</span> json.dumps(body)</span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Call Claude with AWS Bedrock </span></span>
+<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a>bedrock <span class="op">=</span> boto3.client(<span class="st">"bedrock-runtime"</span>, region_name<span class="op">=</span><span class="st">"us-west-2"</span>)</span>
+<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a>modelId <span class="op">=</span> <span class="st">"anthropic.claude-3-5-sonnet-20240620-v1:0"</span></span>
+<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a>bedrock_response <span class="op">=</span> bedrock.invoke_model(</span>
+<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a>    body<span class="op">=</span>body_str,</span>
+<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a>    modelId<span class="op">=</span>modelId,</span>
+<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a>    accept<span class="op">=</span><span class="st">"application/json"</span>,</span>
+<span id="cb31-53"><a href="#cb31-53" aria-hidden="true" tabindex="-1"></a>    contentType<span class="op">=</span><span class="st">"application/json"</span></span>
+<span id="cb31-54"><a href="#cb31-54" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-55"><a href="#cb31-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-56"><a href="#cb31-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Parse Claude's response</span></span>
+<span id="cb31-57"><a href="#cb31-57" aria-hidden="true" tabindex="-1"></a>bedrock_body <span class="op">=</span> json.loads(bedrock_response[<span class="st">"body"</span>].read())</span>
+<span id="cb31-58"><a href="#cb31-58" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb31-59"><a href="#cb31-59" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Claude's Response:</span><span class="ch">\n</span><span class="st">"</span>, bedrock_body[<span class="st">"content"</span>][<span class="dv">0</span>][<span class="st">"text"</span>])</span>
+<span id="cb31-60"><a href="#cb31-60" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb31-61"><a href="#cb31-61" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Error reading Claude response:"</span>, e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parks in CA: ['Alcatraz Island', 'Butterfield Overland National Historic Trail', 'Cabrillo National Monument', 'California National Historic Trail', 'Castle Mountains National Monument', 'Channel Islands National Park', 'César E. Chávez National Monument', 'Death Valley National Park', 'Devils Postpile National Monument', "Eugene O'Neill National Historic Site"]
+
+Claude's Response:
+ Certainly! Here's a prioritized list of some of the most unique and noteworthy parks from your selection, along with explanations of what makes each special:
+
+1. Death Valley National Park:
+   - Unique features: Lowest point in North America, extreme heat, diverse landscapes
+   - Priority: High - offers vast desert scenery, salt flats, sand dunes, and unique geological formations
+
+2. Channel Islands National Park:
+   - Unique features: Isolated island ecosystems, diverse wildlife, marine life
+   - Priority: High - great for hiking, kayaking, and observing rare species
+
+3. Alcatraz Island:
+   - Unique features: Former high-security prison, rich history
+   - Priority: High - iconic San Francisco landmark with fascinating tours
+
+4. Devils Postpile National Monument:
+   - Unique features: Unusual hexagonal basalt columns, Rainbow Falls
+   - Priority: Medium - geological wonder with scenic hiking trails
+
+5. César E. Chávez National Monument:
+   - Unique features: Honors the civil rights leader and labor movement
+   - Priority: Medium - important historical site for those interested in social justice
+
+6. Cabrillo National Monument:
+   - Unique features: Commemorates the landing of Juan Rodriguez Cabrillo, tide pools, whale watching
+   - Priority: Medium - offers beautiful views of San Diego and marine life
+
+7. Castle Mountains National Monument:
+   - Unique features: Desert landscape, Native American archaeological sites
+   - Priority: Lower - remote and less developed, but good for solitude seekers
+
+8. Eugene O'Neill National Historic Site:
+   - Unique features: Home of the famous playwright
+   - Priority: Lower - interesting for literature enthusiasts but more niche appeal
+
+The California National Historic Trail and Butterfield Overland National Historic Trail are long-distance routes rather than specific sites, so they're harder to prioritize for a single trip.
+
+Your choices should depend on your interests (history, nature, geology) and the regions of California you plan to visit. The top three offer diverse experiences and are highly recommended if they fit your itinerary.</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
